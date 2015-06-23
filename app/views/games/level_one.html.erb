@@ -68,12 +68,20 @@ function create() {
     ledge_5 = platforms.create(250, 440, 'blank_line');
    	ledge_5.scale.setTo(.45, 1);
     ledge_5.body.immovable = true;
+
+
+// this is for the line that makes the window allow you to jump out of it to the next level
+    exit_window = game.add.sprite(-150, 100, 'purp_line');
+    exit_window.scale.setTo(2, 1);
+    game.physics.arcade.enable(exit_window);
+    game.add.tween(exit_window).to( { angle: 90 }, 1, Phaser.Easing.Linear.None, true);
+
    
    // bring character into the game
    	player = game.add.sprite(1, 220, 'user');
 	 //  We need to enable physics on the player
 	    game.physics.arcade.enable(player);
-        player.scale.setTo(.7,.7)
+        player.scale.setTo(0.7,0.7);
     	player.body.gravity.y = 500;
     	player.body.checkCollision.up = false;
     	player.body.checkCollision.left = false;
@@ -93,19 +101,16 @@ function create() {
         cursors = game.input.keyboard.createCursorKeys();
 
 
-clouds = game.add.group();
 
-clouds.enableBody = true;
+// clouds = game.add.group();
 
-
-
-
-        var cloud = clouds.create(i * 100,200, 'cloud');
-        // cloud.scale.x = game.rnd.realInRange(.24, .24);
-        // cloud.scale.y = game.rnd.realInRange(.24, .24);
+// clouds.enableBody = true;
+//         var cloud = clouds.create(i * 100,200, 'cloud');
+//         // cloud.scale.x = game.rnd.realInRange(.24, .24);
+//         // cloud.scale.y = game.rnd.realInRange(.24, .24);
         
-        cloud.animations.add('cloud',[1,2,3,4,5,6,7,8,9,10,11,12], 7 , true);
-        cloud.animations.play('cloud');
+//         cloud.animations.add('cloud',[1,2,3,4,5,6,7,8,9,10,11,12], 7 , true);
+//         cloud.animations.play('cloud');
 
 
 
@@ -115,24 +120,24 @@ clouds.enableBody = true;
 
 coins = game.add.group();
 
-    coins.enableBody = true;
+  //   coins.enableBody = true;
 
-    //  Here we'll create 12 of them evenly spaced apart
-    for (var i = 1.8; i < 4.5; i++)
-    {
-        //  Create a star inside of the 'stars' group
-        var coin = coins.create(i * 90, 0, 'coin');
-        coin.scale.x = game.rnd.realInRange(.24, .24);
-		coin.scale.y = game.rnd.realInRange(.24, .24);
+  //   //  Here we'll create 12 of them evenly spaced apart
+  //   for (var i = 1.8; i < 4.5; i++)
+  //   {
+  //       //  Create a star inside of the 'stars' group
+  //       var coin = coins.create(i * 90, 0, 'coin');
+  //       coin.scale.x = game.rnd.realInRange(.24, .24);
+		// coin.scale.y = game.rnd.realInRange(.24, .24);
 
-        //  Let gravity do its thing
-        coin.body.gravity.y = 300;
-        //  This just gives each star a slightly random bounce value
-        coin.body.bounce.y = 0.6 + Math.random() * 0.4;
+  //       //  Let gravity do its thing
+  //       coin.body.gravity.y = 300;
+  //       //  This just gives each star a slightly random bounce value
+  //       coin.body.bounce.y = 0.6 + Math.random() * 0.4;
 
-        coin.animations.add('spin', [5, 6, 7, 8, 9, 10, 9], 10, true);
-        coin.animations.play('spin');
-    }
+  //       coin.animations.add('spin', [5, 6, 7, 8, 9, 10, 9], 10, true);
+  //       coin.animations.play('spin');
+  //   }
 
 
         
@@ -145,7 +150,7 @@ coins = game.add.group();
 
 
 function update() {
-	game.physics.arcade.collide(player, platforms);
+	
 	// for could movement
     
 	
@@ -184,11 +189,16 @@ function update() {
     // coin animation
 	
 	game.physics.arcade.collide(coins, platforms);
+    game.physics.arcade.collide(player, platforms);
 
 
 	// allows player to collect coins
 	game.physics.arcade.overlap(player, coins, collectCoin, null, this);
 	scoreText = game.add.text(16, 16, 'Score: ', { fontSize: '32px', fill: '#000' });
+
+
+    // this allows the player to overlap with the window and allow you to jump out of it when you hit it.
+       game.physics.arcade.overlap(player, exit_window, overlapHandler, null, this);
 	
 
 }
@@ -222,6 +232,24 @@ function collectCoin (player, coin) {
 
 }
 
+// this is the actually function being called when you jump out the window. this bring you to the next level
+
+
+function overlapHandler (player, exit_window) {
+
+    game.stage.backgroundColor = '#992d2d';
+// this makes player disappear when they change levels
+    player.kill();
+
+            
+      // this changes level
+    var levelChange = function() {
+        // window.location.replace("http://reincarnage.herokuapp.com/level2intro")};
+        window.location.replace("http://localhost:3000/games/level_two")};
+        
+        $('body').fadeOut(2000, function(){levelChange();});
+
+}
 </script>
 
 

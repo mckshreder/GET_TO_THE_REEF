@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   
   root :to => 'games#level_two'
 
-    get "/games" => "games#level_one", as: :level_one
-    get "/games" => "games#level_two", as: :level_two
+    get "/games/level_one" => "games#level_one", as: :level_one
+    get "/games/level_two" => "games#level_two", as: :level_two
 
 
 
