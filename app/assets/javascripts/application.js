@@ -18,3 +18,16 @@
 $('div').on('click', function() {
       $(this).toggleClass('show-description');
   });
+
+data = {
+      level_one: parseInt(localStorage.getItem("firstLevelTime")),
+      level_two: parseInt(localStorage.getItem("secondLevelTime")),
+      // level3: parseInt(localStorage.getItem("thirdLevelTime")),
+      // level4: parseInt(localStorage.getItem("fourthLevelTime")),
+      total: parseInt(localStorage.getItem("totalTimeMS"))
+    }
+//     $.ajax({ url: '/save',
+//       type: 'POST',
+//       beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+//       data: data
+//     });

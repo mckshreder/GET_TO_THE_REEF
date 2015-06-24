@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
     get "/games/level_one" => "games#level_one", as: :level_one
     get "/games/level_two" => "games#level_two", as: :level_two
+    post 'save' => "games#save"
 
 
 

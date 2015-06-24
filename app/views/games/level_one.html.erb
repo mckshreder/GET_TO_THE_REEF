@@ -2,25 +2,45 @@
 
 
 <script type="text/javascript">
+// these two created for clock
+
+// for timer
+var pauser = true;
+
+var game = new Phaser.Game(860, 600, Phaser.AUTO, 'game-container', { preload: preload, create: create, update: update, render: render });
 
 
 var coins, clouds, cloud, player;
-var game = new Phaser.Game(860, 600, Phaser.AUTO, 'game-container', { preload: preload, create: create, update: update });
+
+
 
 function preload() {
+  // this is for the clock
+  beginningTimeSeconds = game.time.time / 1000
+  beginningTimeMS = game.time.time
+  console.log(beginningTimeMS)
+
 	game.load.image('background', '/images/Bedroom_1.jpg');
 	game.load.image('blank_line', '/images/blank_line.png');
 	game.load.image('purp_line', '/images/purp_line.png');
     // game.load.spritesheet('user', '/images/hotdogsprite.png', 49, 100);
-    game.load.spritesheet('user', '/images/runninmoney.png', 250, 320, 60);
-    game.load.spritesheet('coin', '/images/redgacoin.png', 273.29, 300);
-    game.load.spritesheet('cloud', '/images/cloudsprite.png', 500, 275, 13);
+  game.load.spritesheet('user', '/images/runninmoney.png', 250, 320, 60);
+  game.load.spritesheet('coin', '/images/redgacoin.png', 273.29, 300);
+  game.load.spritesheet('cloud', '/images/cloudsprite.png', 500, 275, 13);
 }
+
+// these create the timer variables
+var timer;
+var timer2;
+var total = 0;
+var total2 = 0;
 
 function create() {
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 	game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
-    game.input.onDown.add(gofull, this);
+  game.input.onDown.add(gofull, this);
+
+    
 	
 	// inserting background image
 	background = game.add.image(0, 0, 'background');
@@ -102,6 +122,17 @@ function create() {
 
 
 
+   //  Create our Timer
+  timer = game.time.create(false);
+  timer2 = game.time.create(false);
+  //  Set a TimerEvent to occur after 2 seconds
+  timer.loop(750, updateCounter, this);
+  timer2.loop(1, updateCounter2, this);
+  //  Start the timer running - this is important!
+  //  It won't start automatically, allowing you to hook it to button events and the like.
+  timer.start();
+  timer2.start();
+
 // clouds = game.add.group();
 
 // clouds.enableBody = true;
@@ -113,12 +144,7 @@ function create() {
 //         cloud.animations.play('cloud');
 
 
-
-
-	        
-
-
-coins = game.add.group();
+// coins = game.add.group();
 
   //   coins.enableBody = true;
 
@@ -139,18 +165,18 @@ coins = game.add.group();
   //       coin.animations.play('spin');
   //   }
 
-
         
-
-    
-
+        
 	   
     	
 }
 
 
+
+
+
 function update() {
-	
+
 	// for could movement
     
 	
@@ -194,18 +220,19 @@ function update() {
 
 	// allows player to collect coins
 	game.physics.arcade.overlap(player, coins, collectCoin, null, this);
-	scoreText = game.add.text(16, 16, 'Score: ', { fontSize: '32px', fill: '#000' });
+	// scoreText = game.add.text(16, 16, 'Score: ', { fontSize: '32px', fill: '#000' });
+
 
 
     // this allows the player to overlap with the window and allow you to jump out of it when you hit it.
        game.physics.arcade.overlap(player, exit_window, overlapHandler, null, this);
 	
 
+
 }
 
 
-
-
+// this function makes the screen go fullscreen when you call it
 function gofull() {
 
     if (game.scale.isFullScreen)
@@ -218,7 +245,11 @@ function gofull() {
     }
 
 }
+
+
 var score = 0;
+
+
 function collectCoin (player, coin) {
 	
     // Removes the star from the screen
@@ -233,23 +264,45 @@ function collectCoin (player, coin) {
 }
 
 // this is the actually function being called when you jump out the window. this bring you to the next level
-
-
 function overlapHandler (player, exit_window) {
 
     game.stage.backgroundColor = '#992d2d';
 // this makes player disappear when they change levels
     player.kill();
 
+   
+
             
       // this changes level
     var levelChange = function() {
+        // this kills timer after you win
+        timer.stop();
+        timer2.stop();
+        // this is what saves the time to local storage
+        finishTime = total
+        localStorage.setItem("firstLevelTime", finishTime);
+        // insert timeout function
         // window.location.replace("http://reincarnage.herokuapp.com/level2intro")};
         window.location.replace("http://localhost:3000/games/level_two")};
         
         $('body').fadeOut(2000, function(){levelChange();});
 
 }
+
+// both these functions add the time elapsed once level is finished and clock is skilled
+function updateCounter() {
+    total++;
+}
+function updateCounter2() {
+    total2++;
+}
+
+
+
+function render(){
+        // game.debug.text('Time until event: ' + timer.duration.toFixed(0), 800, 40);
+        game.debug.text('TIME: ' + total + 's', 685, 25);
+      }
 </script>
 
 
