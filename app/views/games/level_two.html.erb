@@ -13,7 +13,7 @@ function preload() {
     // console.log(previous_time)
 
     // regular time variable
-    beginningTimeMS = game.time.time
+    beginningTimeMS = game.time.time;
 
     game.load.image('blank_line', '/images/blank_line.png');
     game.load.image('purp_line', '/images/purp_line.png');
@@ -28,7 +28,8 @@ var timer;
 var timer2;
 // this adds the total time from the first level time into this level time at begining of level
 var total = localStorage.getItem("firstLevelTime");
-var total2;
+var total_minutes = localStorage.getItem("firstLevelTime_minutes");
+var total_seconds = localStorage.getItem("firstLevelTime_seconds");
 
 function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -62,7 +63,7 @@ function create() {
     game.physics.arcade.enable(player);
     game.physics.enable(player);
     game.camera.follow(player);
-    player.scale.setTo(.7,.7)
+    player.scale.setTo(.7,.7);
     player.body.gravity.y = 500;
     player.body.checkCollision.up = false;
     player.body.checkCollision.left = false;
@@ -82,8 +83,23 @@ function create() {
     timer = game.time.create(false);
     timer2 = game.time.create(false);
     //  Set a TimerEvent to occur after 2 seconds
-    timer.loop(1000, updateCounter, this);
-    timer2.loop(1, updateCounter2, this);
+    // if the seconds is game.time.time then this updates every 1 second real time (which is 1 second real time  = 1000 on phaser for some reason). So we want our game to be 2 minutes long real time. so 
+    
+    // 1000 = update every second
+    // 1000 * 60  = 60,000(update once a minute (real time)
+    // 60,000 * 2 = 120,000(update every two minutes)
+   
+    // how many minutes are in 2 min
+    // 120 seconds = 2 minutes
+    // 120 seconds / 10 = 12 seconds per minute game time
+    // 12 * 1000 = 12,000 (makes clock time increase every 12 seconds!!!!)
+
+    // so now every 72 seconds, this loop saves time on the clock at 
+    // timer.loop(12000, updateCounter, this);
+    // this is the look that updates the game time seconds.
+    // in game time, one second = 200
+    timer.loop(200, updateCounter_2, this);
+    
     //  Start the timer running - this is important!
     //  It won't start automatically, allowing you to hook it to button events and the like.
     timer.start();
@@ -153,23 +169,73 @@ function gofull() {
         game.scale.startFullScreen(false);
     }
 }
-// both these functions add the time elapsed once level is finished and clock is skilled
-function updateCounter() {
-    
-    total++;
+
+// these will be the code that ends the level and saves data and kills player and takes you to the next map. This is a place holder for now
+// this is the actually function being called when you jump out the window. this bring you to the next level
+
+// function overlapHandler (player, exit_window) {
+
+//     game.stage.backgroundColor = '#992d2d';
+// // this makes player disappear when they change levels
+//     player.kill();
+
+   
+
+            
+//       // this changes level
+//     var levelChange = function() {
+//         // this kills timer after you win
+//         timer.stop();
+//         timer2.stop();
+//         // this is what saves the time to local storage
+//         finishTime = total
+//         localStorage.setItem("firstLevelTime", finishTime);
+
+//         finishTime_minutes = total_minutes
+//         localStorage.setItem("firstLevelTime_minutes", finishTime_minutes);
+//         // insert timeout function
+//         // window.location.replace("http://reincarnage.herokuapp.com/level2intro")};
+//         window.location.replace("http://localhost:3000/games/level_two")};
+        
+//         $('body').fadeOut(2000, function(){levelChange();});
+
+// }
+
+// this is the function that updates the clock and keeps track
+function updateCounter_2() {
+   
+   if (total_seconds > 59) 
+    {
+        total_seconds = total_seconds - 60;
+        total ++;
+          
+          if (total > 59) 
+            {
+            total = total - 60;
+            total_minutes++;
+            }
+          else {
+
+          }
+    }
+    else    
+    {
+        total_seconds++;
+    }
 }
-function updateCounter2() {
-    total2++;
-}
+
+
+
 
 function render() {
     // this is to display the clock
-    game.debug.text('TIME: ' + total + 's', 685, 25);
+    game.debug.text('TIME: ' + total_minutes + ":" + total + ":" + total_seconds +' a.m.', 358, 25);
     // this allows player to be followed by camera
     // game.debug.cameraInfo(game.camera, 0, 0);
     
 }
-    
-
-
+   
 </script>
+
+
+
