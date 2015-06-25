@@ -1,3 +1,20 @@
+.Title{
+  font-family: 'Sonsie One', cursive; font-weight: 400; font-size: 90px; text-align:center
+; color: goldenrod; text-shadow: 4px 4px black;}
+
+//$('.Title').circleType({radius: 384, dir:-1});
+
+
+
+.submit-button{
+  color:goldenrod;
+}
+
+.background{
+  background-image:url('/images/LAlove.gif');
+  background-size:100%;
+
+}
 // Place all the styles related to the Sessions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
