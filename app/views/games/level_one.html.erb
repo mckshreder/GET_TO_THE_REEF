@@ -126,7 +126,7 @@ function create() {
   timer = game.time.create(false);
   timer2 = game.time.create(false);
   //  Set a TimerEvent to occur after 2 seconds
-  timer.loop(750, updateCounter, this);
+  timer.loop(1000, updateCounter, this);
   timer2.loop(1, updateCounter2, this);
   //  Start the timer running - this is important!
   //  It won't start automatically, allowing you to hook it to button events and the like.
