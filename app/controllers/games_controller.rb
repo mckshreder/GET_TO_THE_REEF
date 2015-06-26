@@ -1,5 +1,8 @@
 class GamesController < ApplicationController
 	before_action :authorize
+  def home
+  end
+
 	def level_one
 	end
 

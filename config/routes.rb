@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   
-  root :to => 'games#level_two'
+  root :to => 'games#home'
 
     get "/games/level_one" => "games#level_one", as: :level_one
     get "/games/level_two" => "games#level_two", as: :level_two
@@ -21,6 +21,12 @@ Rails.application.routes.draw do
     get "/sessions/new" => "sessions#new", as: :new_session
     post "/sessions" => "sessions#create", as: :create_session
     get "/sessions/destroy" => "sessions#destroy", as: :destroy_session
+
+
+  namespace :api do
+    resources :scores, only:[:index]
+
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
