@@ -2,7 +2,9 @@
 <% flash.each do |key, value| %>
     <h4><%= value %></h4>
 <% end %>
-<%= form_for @user, url: create_session_path do |f| %>
+  <body class="background">
+
+  <%= form_for @user, url: create_session_path do |f| %>
 
     <div class="form-group">
     <%= f.label :email %>
@@ -17,5 +19,6 @@
     <%= f.submit "Log In", class: "submit-button-create" %>
     <%= link_to "Create New Account", new_user_path, class: "submit-button" %>
 <% end %>
-
+  <div class="Title"> GIT TO THE REEF</div>
 </div>
+</body>
