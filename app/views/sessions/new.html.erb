@@ -2,7 +2,7 @@
 <% flash.each do |key, value| %>
     <h4><%= value %></h4>
 <% end %>
-  <body class="background">
+  <body>
 
   <%= form_for @user, url: create_session_path do |f| %>
 
