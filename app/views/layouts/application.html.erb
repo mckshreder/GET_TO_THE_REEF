@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
   <title>GTTRGame</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -14,7 +15,7 @@
   
 </head>
 <body>
-
+<div class= "backdrop">
 <nav class="navbar navbar-default">
   
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -83,6 +84,6 @@
 
 <%= yield %>
 
-
+</div>
 </body>
 </html>
