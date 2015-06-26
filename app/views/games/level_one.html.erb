@@ -124,6 +124,7 @@ function create() {
 
         // this is where player movement starts 
         cursors = game.input.keyboard.createCursorKeys();
+        spaceBar = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
 
 
@@ -153,7 +154,7 @@ function create() {
   timer.start();
   timer2.start();
 
-   gameTime =  game.add.text(0, 0, 'TIME: ' + total_minutes + ":" + total + ":" + total_seconds +' a.m.', { font: '34px Arial', fill: '#fff' });
+   gameTime = ('TIME: ' + total_minutes + ":" + total + ":" + total_seconds +' a.m.');
 
 
 // clouds = game.add.group();
@@ -229,7 +230,7 @@ function update() {
     }
 
     //  Allow the player to jump if they are touching the ground.
-    if (cursors.up.isDown && player.body.touching.down)
+    if (spaceBar.isDown && player.body.touching.down)
     {
         player.body.velocity.y = -350;
     }
@@ -314,7 +315,7 @@ function updateCounter_2() {
 
 function render() {
     // this is to display the clock
-    // game.debug.text('TIME: ' + total_minutes + ":" + total + ":" + total_seconds +' a.m.', 358, 25);
+    game.debug.text('TIME: ' + total_minutes + ":" + total + ":" + total_seconds +' a.m.', 358, 25);
     // this allows player to be followed by camera
     // game.debug.cameraInfo(game.camera, 0, 0);
     
