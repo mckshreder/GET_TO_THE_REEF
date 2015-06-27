@@ -18,11 +18,12 @@ function preload() {
     game.load.image('house', '/images/moneys_house.png');
     game.load.image('blank_line', '/images/blank_line.png');
     game.load.image('purp_line', '/images/purp_line.png');
-    game.load.image('clouds', '/images/LEVEL2_mountains_sky_hollywood_sign.png');
+    game.load.image('mountain', '/images/LEVEL2_mountains_sky_hollywood_sign.png');
 	game.load.image('background', '/images/LEVEL2_city_buildings.png');
+    game.load.image('close_background', '/images/LEVEL2_city_buildings.png');
     game.load.image('sidewalk', '/images/LEVEL2_foreground_street.png');
     game.load.spritesheet('user', '/images/runninmoney.png', 250, 320, 60);
-    game.load.image('grass', '/images/footer_grass.png')
+    game.load.image('grass', '/images/grass_front.png');
 
 	}
 var house;
@@ -40,21 +41,25 @@ function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
     game.input.onDown.add(gofull, this);
-    game.world.setBounds(0, 0, 10000, 2000);
+    game.world.setBounds(0, 0, 10240, 2000);
      
-    clouds = game.add.image(0, 0, 'clouds');
-    clouds.scale.setTo(.3,.3);
+    clouds = game.add.image(0, 0, 'mountain');
+    clouds.scale.setTo(.5,.55);
+
+    // grass = game.add.image(0, 100, 'grass');
+    // grass.scale.setTo(.1,.2);
 
 
     // inserting background image
     background = game.add.image(0, 0, 'background');
     background.scale.setTo(.5,.5);
 
-    close_building = game.add.image(-1000,-935, 'background');
-    // close_building.scale.setTo(1.3,1.3);
+    close_building = game.add.image(500,-1035, 'close_background');
+    // close_building.anchor.setTo(-0.4, .4);
+    close_building.scale.setTo(1.5,1.5);
 
 
-    sidewalk = game.add.image(0, -335, 'sidewalk');
+    sidewalk = game.add.image(0, -425, 'sidewalk');
     sidewalk.scale.setTo(.9,.9);
     // sidewalk.x += 10;
     //    background.width = game.width
@@ -83,7 +88,7 @@ function create() {
     game.physics.arcade.enable(player);
     game.physics.enable(player);
     game.camera.follow(player);
-    player.scale.setTo(0.7,0.7);
+    player.scale.setTo(0.6,0.6);
     player.body.gravity.y = 500;
     player.body.checkCollision.up = false;
     player.body.checkCollision.left = false;
@@ -103,7 +108,7 @@ function create() {
 
     // this is what creates the grass on the bottom of screen
 
-    // grass = game.add.image(0, 445, 'grass');
+    
 
              //  Create our Timer
     timer = game.time.create(false);
@@ -140,14 +145,14 @@ function create() {
 
 function update() {
     game.physics.arcade.collide(player, platforms);
-    // for could movement
 
     // helps woth parallax movement
     clouds.x=game.camera.x*0.9;
-    background.x=game.camera.x*0.8;
-    close_building.x=game.camera.x*0.3;
+    // the little - and + at after these game.camera.x set the object based on the camera position
+    background.x=(game.camera.x*0.8)-3000;
+    close_building.x=(game.camera.x*0.25) + 2500;
     sidewalk.x=game.camera.x*0.2;
-    // grass.x=game.camera.x*0.3;
+    // grass.x=game.camera.x*0.8;
     // house.x=game.camera.x*0.2;
 
    
