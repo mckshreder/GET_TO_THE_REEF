@@ -15,7 +15,8 @@ class GamesController < ApplicationController
           :level1 => params[:level1],
           :level2 => params[:level2],
           :level3 => params[:level3],
-          :total => params[:total],   
+          :total => params[:total],
+          :name => params[:name],
           :user => params[@user_params]
         })
         user.save
