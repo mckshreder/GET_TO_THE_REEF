@@ -28,7 +28,7 @@ function preload() {
 
 	}
 
-var house, hotdog;
+var house, hotdog, icecream;
     // these create the timer variables
 var timer;
 var timer2;
@@ -107,7 +107,7 @@ function create() {
     player.body.gravity.y = 500;
     //  This adjusts the collision body size to be a 100x50 box.
     //  50, 25 is the X and Y offset of the newly sized box.
-    player.body.setSize(45, 165, 65, 90);
+    player.body.setSize(45, 230, 65, 50);
     // player.body.checkCollision.up = false;
     // player.body.checkCollision.left = false;
     // player.body.checkCollision.right = false;
@@ -181,8 +181,8 @@ function create() {
     
     function icecreamLaunch() {
         createIcecream(1500, 80, 1.2, -600);
-        createIcecream(-1500, 80, 1.2, 600);
-        createIcecream(-500, 385, 1.5, 500);
+        createIcecream(-1500, 80, 1.2, -600);
+        createIcecream(-500, 385, 1.5, -500);
         createIcecream(1000, 530, 1.5, -500);
     }
 
@@ -343,6 +343,7 @@ function render() {
     // game.debug.cameraInfo(game.camera, 0, 0);
     
      game.debug.body(player);
+     game.debug.body(icecreams);
 }
    
 </script>
