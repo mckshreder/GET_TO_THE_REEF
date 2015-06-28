@@ -62,20 +62,10 @@ function create() {
 	background.height = game.height;
   background.width = game.width;
     
-    // // this is for the line that makes the window allow you to jump out of it to the next level
-    // exit_window = game.add.sprite(840, 100, 'purp_line_vertical');
-    // exit_window.scale.setTo(2, 1);
-    // game.physics.arcade.enable(exit_window);
-    
-    // game.add.tween(exit_window).to( { angle: 90 }, 1, Phaser.Easing.Linear.None, true);
-
-    
-    
-
-    // creating platform group to contain the floor
-    platforms = game.add.group();
-    //  We will enable physics for any object that is created in this group
-  	platforms.enableBody = true;
+  // creating platform group to contain the floor
+  platforms = game.add.group();
+  //  We will enable physics for any object that is created in this group
+	platforms.enableBody = true;
 
   	
     // creating the floor for the game
@@ -99,13 +89,6 @@ function create() {
     ledge_2.body.checkCollision.left = false;
     ledge_2.body.checkCollision.right = false;
 
-    //   this is the ledge for the shelf to the left of the bed
-    //    ledge_3 = platforms.create(200, 395, 'purp_line');
-    //    ledge_3.scale.setTo(1, 1);
-    //    ledge_3.body.immovable = true;
-    //    ledge_3.body.checkCollision.left = false;
-    //    ledge_3.body.checkCollision.right = false;
-
     // this is the ledge for the top of the bedframe below mattress
     ledge_5 = platforms.create(290, 430, 'blank_line');
    	ledge_5.scale.setTo(3, 1);
@@ -114,16 +97,16 @@ function create() {
     ledge_5.body.checkCollision.right = false;
 
 
-    // this is where we create the ringing alarm clock alarm clock
-      ringing_alarm = game.add.sprite(650,370, 'ringing_alarm_clock');
-      game.physics.arcade.enable(ringing_alarm);
-      ringing_alarm.body.setSize(45, 130, 0, 0);
-      ringing_alarm.scale.x = game.rnd.realInRange(.01, .01);
-      ringing_alarm.scale.y = game.rnd.realInRange(.01, .01);
-      ringing_alarm.anchor.set(0.5);
-      ringing_alarm.smoothed = false;
-      // this is what makes teh alarm animate
-      game.add.tween(ringing_alarm.scale).to( { x: 0.3, y: 0.3 }, 250, Phaser.Easing.Linear.None, true, 1000, 100, true);
+  // this is where we create the ringing alarm clock alarm clock
+    ringing_alarm = game.add.sprite(650,370, 'ringing_alarm_clock');
+    game.physics.arcade.enable(ringing_alarm);
+    ringing_alarm.body.setSize(45, 130, 0, 0);
+    ringing_alarm.scale.x = game.rnd.realInRange(.01, .01);
+    ringing_alarm.scale.y = game.rnd.realInRange(.01, .01);
+    ringing_alarm.anchor.set(0.5);
+    ringing_alarm.smoothed = false;
+    // this is what makes teh alarm animate
+    game.add.tween(ringing_alarm.scale).to( { x: 0.3, y: 0.3 }, 250, Phaser.Easing.Linear.None, true, 1000, 100, true);
 
 
       // game.physics.arcade.overlap(player, ringing_alarm, collectCoin, null, this);
@@ -131,35 +114,35 @@ function create() {
       // game.time.events.add(Phaser.Timer.SECOND * 3, playerCreate, this);
 
 
-      // bring character into the game
-   	  player = game.add.sprite(270, 210, 'user');
-	    // We need to enable physics on the player
-	    game.physics.arcade.enable(player);
-      player.scale.setTo(0.6,0.6);
-      player.body.setSize(45, 230, 65, 50);
-    	player.body.gravity.y = 500;
-    	player.body.checkCollision.up = false;
-    	// player.body.checkCollision.left = false;
-    	// player.body.checkCollision.right = false;
-		 //  Player physics properties. Give the little guy a slight bounce.
-	    player.body.bounce.y= 0.2;
-	    player.body.gravity.y = 575;
-	    player.body.collideWorldBounds = true;
-	 
-	    //  Our two animations, walking left and right.
-	    player.animations.add('left',[3,4,5,6,7,8,9,10], 9, true);
-	    player.animations.add('right',[58,57,56,55,54,53,52,51,50], 9, true);
-	    // player.animations.add('jumpLeft', [14], 3, true);
-	    // player.animations.add('jumpRight', [26], 3, true);
+    // bring character into the game
+  	  player = game.add.sprite(270, 210, 'user');
+    // We need to enable physics on the player
+    game.physics.arcade.enable(player);
+    player.scale.setTo(0.6,0.6);
+    player.body.setSize(45, 230, 65, 50);
+  	player.body.gravity.y = 500;
+  	player.body.checkCollision.up = false;
+  	// player.body.checkCollision.left = false;
+  	// player.body.checkCollision.right = false;
+   //  Player physics properties. Give the little guy a slight bounce.
+    player.body.bounce.y= 0.2;
+    player.body.gravity.y = 575;
+    player.body.collideWorldBounds = true;
 
-  // this is where player movement starts 
-  cursors = game.input.keyboard.createCursorKeys();
-  spaceBar = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+    //  Our two animations, walking left and right.
+    player.animations.add('left',[3,4,5,6,7,8,9,10], 9, true);
+    player.animations.add('right',[58,57,56,55,54,53,52,51,50], 9, true);
+    // player.animations.add('jumpLeft', [14], 3, true);
+    // player.animations.add('jumpRight', [26], 3, true);
 
-   //  Create our Timer
-  timer = game.time.create(false);
-  timer2 = game.time.create(false);
-  //  Set a TimerEvent to occur after 2 seconds
+    // this is where player movement starts 
+    cursors = game.input.keyboard.createCursorKeys();
+    spaceBar = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+
+     //  Create our Timer
+    timer = game.time.create(false);
+    timer2 = game.time.create(false);
+    //  Set a TimerEvent to occur after 2 seconds
     // if the seconds is game.time.time then this updates every 1 second real time (which is 1 second real time  = 1000 on phaser for some reason). So we want our game to be 2 minutes long real time. so 
     
     // 1000 = update every second
@@ -273,17 +256,14 @@ function update() {
     // coin animation
 	
 	game.physics.arcade.collide(coins, platforms);
-    game.physics.arcade.collide(player, platforms);
+  game.physics.arcade.collide(player, platforms);
 
 
 	// allows player to collect coins
 	game.physics.arcade.overlap(player, coins, collectCoin, null, this);
-	// scoreText = game.add.text(16, 16, 'Score: ', { fontSize: '32px', fill: '#000' });
 
-
-
-    // this allows the player to overlap with the window and allow you to jump out of it when you hit it.
-       game.physics.arcade.overlap(player, exit_window, overlapHandler, null, this);
+  // this allows the player to overlap with the window and allow you to jump out of it when you hit it.
+  game.physics.arcade.overlap(player, exit_window, overlapHandler, null, this);
 	
 
 }
@@ -299,14 +279,14 @@ function createPizza() {
   pizzaBox.body.setSize(45, 230, 0, 0);
 
   pizzaSlice = game.add.sprite(95, 445, 'pizza');
-      game.physics.arcade.enable(pizzaSlice);
-      pizzaSlice.body.setSize(45, 230, 0, 0);
-      pizzaSlice.scale.x = game.rnd.realInRange(0.01, 0.01);
-      pizzaSlice.scale.y = game.rnd.realInRange(0.01, 0.01);
-      pizzaSlice.anchor.set(0.5);
-      pizzaSlice.smoothed = false;
-      // this is what makes teh alarm animate
-      game.add.tween(pizzaSlice.scale).to( { x: 0.3, y: 0.3 }, 1150, Phaser.Easing.Linear.None, true, 0, 100, true);
+    game.physics.arcade.enable(pizzaSlice);
+    pizzaSlice.body.setSize(45, 230, 0, 0);
+    pizzaSlice.scale.x = game.rnd.realInRange(0.01, 0.01);
+    pizzaSlice.scale.y = game.rnd.realInRange(0.01, 0.01);
+    pizzaSlice.anchor.set(0.5);
+    pizzaSlice.smoothed = false;
+    // this is what makes teh alarm animate
+    game.add.tween(pizzaSlice.scale).to( { x: 0.3, y: 0.3 }, 1150, Phaser.Easing.Linear.None, true, 0, 100, true);
 
 }
 
@@ -323,7 +303,7 @@ function createPhone() {
       phone.anchor.set(0.5);
       phone.smoothed = false;
       // this is what makes teh alarm animate
-      game.add.tween(phone.scale).to( { x: 0.15, y: 0.15 }, 1150, Phaser.Easing.Linear.None, true, 1000, 100, true);
+      game.add.tween(phone.scale).to( { x: 0.15, y: 0.15 }, 1150, Phaser.Easing.Linear.None, true, 0, 100, true);
 
 }
 
@@ -333,17 +313,17 @@ function createPlant() {
 // this is the message that says find moneys keys
 
   money_message = game.add.sprite(420, 350, 'keys_message');
-      game.physics.arcade.enable(money_message);
-      money_message.body.setSize(45, 230, 0, 0);
-      money_message.scale.x = game.rnd.realInRange(0.1, 0.1);
-      money_message.scale.y = game.rnd.realInRange(0.1, 0.1);
-      money_message.anchor.set(0.5);
-      money_message.smoothed = false;
-      // this is what makes teh alarm animate
-     game.add.tween(money_message.scale).to( { x: 1, y: 1 }, 900, Phaser.Easing.Linear.None, true, 0, 2, true);
-      
+    game.physics.arcade.enable(money_message);
+    money_message.body.setSize(45, 230, 0, 0);
+    money_message.scale.x = game.rnd.realInRange(0.1, 0.1);
+    money_message.scale.y = game.rnd.realInRange(0.1, 0.1);
+    money_message.anchor.set(0.5);
+    money_message.smoothed = false;
+    // this is what makes teh alarm animate
+    game.add.tween(money_message.scale).to( { x: 1, y: 1 }, 900, Phaser.Easing.Linear.None, true, 0, 2, true);
+    
 
-   // this is the ledge for the top of the plant
+    // this is the ledge for the top of the plant
     ledge_4 = platforms.create(140, 350, 'purp_line');
     ledge_4.scale.setTo(0.5, 0);
     ledge_4.body.immovable = true;
@@ -364,7 +344,7 @@ function createKeys() {
       keys.anchor.set(0.5);
       keys.smoothed = false;
       // this is what makes teh alarm animate
-     game.add.tween(keys.scale).to( { x: 0.8, y: 0.8 }, 550, Phaser.Easing.Linear.None, true, 500, 100, true);
+  game.add.tween(keys.scale).to( { x: 0.8, y: 0.8 }, 550, Phaser.Easing.Linear.None, true, 500, 100, true);
 
    message = game.add.sprite(140, 350, 'message');
       game.physics.arcade.enable(message);
@@ -374,18 +354,18 @@ function createKeys() {
       message.anchor.set(0.5);
       message.smoothed = false;
       // this is what makes teh alarm animate
-     game.add.tween(message.scale).to( { x: 1, y: 1 }, 6000, Phaser.Easing.Linear.None, true, 500, 100, true);
+      game.add.tween(message.scale).to( { x: 1, y: 1 }, 6000, Phaser.Easing.Linear.None, true, 500, 100, true);
 
       game.time.events.add(Phaser.Timer.SECOND * 6, createExitWindow, this);
 }
 
 function createExitWindow() {
-  keys.kill();
-  message.kill();
-  // this is for the line that makes the window allow you to jump out of it to the next level
-    exit_window = game.add.sprite(840, 100, 'purp_line_vertical');
-    exit_window.scale.setTo(2, 1);
-    game.physics.arcade.enable(exit_window);
+    keys.kill();
+    message.kill();
+    // this is for the line that makes the window allow you to jump out of it to the next level
+      exit_window = game.add.sprite(840, 100, 'blank_line_vertical');
+      exit_window.scale.setTo(2, 1);
+      game.physics.arcade.enable(exit_window);
 
 
 }
@@ -451,9 +431,8 @@ function updateCounter_2() {
 function render() {
     // this is to display the clock
     game.debug.text('TIME: ' + total_minutes + ":" + total + ":" + total_seconds +' a.m.', 358, 25);
-    // this allows player to be followed by camera
-    // game.debug.cameraInfo(game.camera, 0, 0);
-    game.debug.body(player);
+    
+    // game.debug.body(player);
     
 }
 
