@@ -12,7 +12,7 @@ var pauser = true;
 var game = new Phaser.Game(860, 600, Phaser.AUTO, 'game-container', { preload: preload, create: create, update: update, render: render });
 
 
-var coins, clouds, cloud, player, ringing_alarm, pizzaSlice, phone, ledge_4;
+var coins, clouds, cloud, player, ringing_alarm, pizzaSlice, phone, ledge_4, exit_window,keys, money_message;
 
 
 
@@ -31,8 +31,11 @@ function preload() {
   game.load.image('alarm_clock', '/images/alarm_clock.png');
   game.load.image('ringing_alarm_clock', '/images/ringing_alarm_clock.png');
   game.load.image('pizza', '/images/pizza.png');
+  game.load.image('pizzabox', '/images/pizzabox.png');
   game.load.image('phone', '/images/iphone.png');
   game.load.image('keys', '/images/keys.png');
+  game.load.image('keys_message', '/images/LEVEL1_keys_message.png');
+  game.load.image('message', '/images/LEVEL1_message_boneout.png');
     // game.load.spritesheet('user', '/images/hotdogsprite.png', 49, 100);
   game.load.spritesheet('user', '/images/runninmoney.png', 250, 320, 60);
   game.load.spritesheet('coin', '/images/redgacoin.png', 273.29, 300);
@@ -76,35 +79,35 @@ function create() {
 
   	
     // creating the floor for the game
-   var ground = platforms.create(0, game.world.height -70, 'purp_line');
+   var ground = platforms.create(0, game.world.height -70, 'blank_line');
    game.physics.arcade.enable(ground);
    ground.scale.setTo(200, 2);
    ground.body.immovable = true;
 
 // this is the ledge for the rug to the right
-    ledge_1 = platforms.create(590, 470, 'purp_line');
-    ledge_1.scale.setTo(2, 1);
+    ledge_1 = platforms.create(590, 470, 'blank_line');
+    ledge_1.scale.setTo(1.5, 1);
     ledge_1.body.immovable = true;
     ledge_1.body.checkCollision.left = false;
     ledge_1.body.checkCollision.right = false;
     
 
     // this is the ledge for the bed
-   	ledge_2 = platforms.create(300, 375, 'purp_line');
+   	ledge_2 = platforms.create(300, 375, 'blank_line');
    	ledge_2.scale.setTo(2.7, 1);
     ledge_2.body.immovable = true;
     ledge_2.body.checkCollision.left = false;
     ledge_2.body.checkCollision.right = false;
 
-	// this is the ledge for the shelf to the left of the bed
-    ledge_3 = platforms.create(200, 395, 'purp_line');
-   	ledge_3.scale.setTo(1, 1);
-    ledge_3.body.immovable = true;
-    ledge_3.body.checkCollision.left = false;
-    ledge_3.body.checkCollision.right = false;
+    //   this is the ledge for the shelf to the left of the bed
+    //    ledge_3 = platforms.create(200, 395, 'purp_line');
+    //    ledge_3.scale.setTo(1, 1);
+    //    ledge_3.body.immovable = true;
+    //    ledge_3.body.checkCollision.left = false;
+    //    ledge_3.body.checkCollision.right = false;
 
     // this is the ledge for the top of the bedframe below mattress
-    ledge_5 = platforms.create(290, 430, 'purp_line');
+    ledge_5 = platforms.create(290, 430, 'blank_line');
    	ledge_5.scale.setTo(3, 1);
     ledge_5.body.immovable = true;
     ledge_5.body.checkCollision.left = false;
@@ -120,7 +123,7 @@ function create() {
       ringing_alarm.anchor.set(0.5);
       ringing_alarm.smoothed = false;
       // this is what makes teh alarm animate
-      game.add.tween(ringing_alarm.scale).to( { x: 0.3, y: 0.3 }, 250, Phaser.Easing.Linear.None, true, 500, 100, true);
+      game.add.tween(ringing_alarm.scale).to( { x: 0.3, y: 0.3 }, 250, Phaser.Easing.Linear.None, true, 1000, 100, true);
 
 
       // game.physics.arcade.overlap(player, ringing_alarm, collectCoin, null, this);
@@ -129,7 +132,7 @@ function create() {
 
 
       // bring character into the game
-   	  player = game.add.sprite(1, 220, 'user');
+   	  player = game.add.sprite(270, 210, 'user');
 	    // We need to enable physics on the player
 	    game.physics.arcade.enable(player);
       player.scale.setTo(0.6,0.6);
@@ -290,21 +293,27 @@ function createPizza() {
   // this terminates the alarm graphic and make the pizza
   ringing_alarm.kill();
 
-  pizzaSlice = game.add.sprite(220, 375, 'pizza');
+  pizzaBox = game.add.sprite(20, 400, 'pizzabox');
+  pizzaBox.scale.setTo(0.25,0.25);
+  game.physics.arcade.enable(pizzaBox);
+  pizzaBox.body.setSize(45, 230, 0, 0);
+
+  pizzaSlice = game.add.sprite(95, 445, 'pizza');
       game.physics.arcade.enable(pizzaSlice);
       pizzaSlice.body.setSize(45, 230, 0, 0);
-      pizzaSlice.scale.x = game.rnd.realInRange(0.09, 0.09);
-      pizzaSlice.scale.y = game.rnd.realInRange(0.09, 0.09);
+      pizzaSlice.scale.x = game.rnd.realInRange(0.01, 0.01);
+      pizzaSlice.scale.y = game.rnd.realInRange(0.01, 0.01);
       pizzaSlice.anchor.set(0.5);
       pizzaSlice.smoothed = false;
       // this is what makes teh alarm animate
-      game.add.tween(pizzaSlice.scale).to( { x: 0.175, y: 0.175 }, 1150, Phaser.Easing.Linear.None, true, 0, 100, true);
+      game.add.tween(pizzaSlice.scale).to( { x: 0.3, y: 0.3 }, 1150, Phaser.Easing.Linear.None, true, 0, 100, true);
 
 }
 
 function createPhone() {
   // this terminates the alarm graphic and make the pizza
   pizzaSlice.kill();
+  pizzaBox.kill();
 
   phone = game.add.sprite(800, 475, 'phone');
       game.physics.arcade.enable(phone);
@@ -321,6 +330,18 @@ function createPhone() {
 function createPlant() {
   // this terminates the alarm graphic and make the planter ledge you have to run into to unock the keys
   phone.kill();
+// this is the message that says find moneys keys
+
+  money_message = game.add.sprite(420, 350, 'keys_message');
+      game.physics.arcade.enable(money_message);
+      money_message.body.setSize(45, 230, 0, 0);
+      money_message.scale.x = game.rnd.realInRange(0.1, 0.1);
+      money_message.scale.y = game.rnd.realInRange(0.1, 0.1);
+      money_message.anchor.set(0.5);
+      money_message.smoothed = false;
+      // this is what makes teh alarm animate
+     game.add.tween(money_message.scale).to( { x: 1, y: 1 }, 900, Phaser.Easing.Linear.None, true, 0, 2, true);
+      
 
    // this is the ledge for the top of the plant
     ledge_4 = platforms.create(140, 350, 'purp_line');
@@ -332,6 +353,8 @@ function createPlant() {
 
 function createKeys() {
   // this terminates the alarm graphic and make the keys 
+  ledge_4.kill();
+  money_message.kill();
 
   keys = game.add.sprite(140, 350, 'keys');
       game.physics.arcade.enable(keys);
@@ -341,13 +364,24 @@ function createKeys() {
       keys.anchor.set(0.5);
       keys.smoothed = false;
       // this is what makes teh alarm animate
-      game.add.tween(keys.scale).to( { x: 0.15, y: 0.15 }, 1150, Phaser.Easing.Linear.None, true, 0, 100, true);
+     game.add.tween(keys.scale).to( { x: 0.8, y: 0.8 }, 550, Phaser.Easing.Linear.None, true, 500, 100, true);
 
-      game.time.events.add(Phaser.Timer.SECOND * 3, createExitWindow, this);
+   message = game.add.sprite(140, 350, 'message');
+      game.physics.arcade.enable(message);
+      message.body.setSize(45, 230, 0, 0);
+      message.scale.x = game.rnd.realInRange(0.1, 0.1);
+      message.scale.y = game.rnd.realInRange(0.1, 0.1);
+      message.anchor.set(0.5);
+      message.smoothed = false;
+      // this is what makes teh alarm animate
+     game.add.tween(message.scale).to( { x: 1, y: 1 }, 6000, Phaser.Easing.Linear.None, true, 500, 100, true);
+
+      game.time.events.add(Phaser.Timer.SECOND * 6, createExitWindow, this);
 }
 
 function createExitWindow() {
   keys.kill();
+  message.kill();
   // this is for the line that makes the window allow you to jump out of it to the next level
     exit_window = game.add.sprite(840, 100, 'purp_line_vertical');
     exit_window.scale.setTo(2, 1);
@@ -420,7 +454,6 @@ function render() {
     // this allows player to be followed by camera
     // game.debug.cameraInfo(game.camera, 0, 0);
     game.debug.body(player);
-    game.debug.body(ringing_alarm);
     
 }
 
