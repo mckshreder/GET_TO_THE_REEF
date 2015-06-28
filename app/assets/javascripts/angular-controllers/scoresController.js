@@ -19,3 +19,20 @@ function ScoresController($http) {
             });
     };
 }
+//
+//function UsersController($http) {
+//    var self = this;
+//    self.getUsers = function () {
+//        return $http({
+//            method: 'GET',
+//            url: "/api/users"
+//        })
+//            .success(function (data) {
+//                console.log('success');
+//                self.jsonUsers = data;
+//            })
+//            .error(function (data) {
+//                console.log('error!');
+//            });
+//    };
+//}

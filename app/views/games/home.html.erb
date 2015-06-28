@@ -1,26 +1,44 @@
 <div ng-app="scoresApp">
     <div ng-controller="ScoresController as scores" ng-init="scores.getScores()">
-      {{scores.jsonScores}}
+      <!--{{scores.jsonScores}}-->
+
+<body>
+      <ul>
+<h2>TOP TEN SCORES</h2>
+        <li
+        class="list-unstyled"
+        ng-repeat="score in scores.jsonScores | orderBy:'-total' | limitTo: 10"
+
+        ng-controller="ScoresController"
+        id="container">
 
 
+            <span class="name">
 
+             <h3>   {{ score.user.name}}:
+                {{ score.total }}</h3>
+            </span>
 
+        </li>
 
-    <main>
-      <!-- begin show all todos -->
-      <section class="score-list">
-        <ul>
-          <li ng-repeat="score in scores.jsonScores">
-          <input type="text" ng-model="score.user" ng-change="score.updateScore(score)" value="{{scores.user}}">-->
+      </ul>
 
+</body>
+    <!--<main>-->
+      <!--&lt;!&ndash; begin show all todos &ndash;&gt;-->
+      <!--<section class="score-list">-->
+        <!--<ul>-->
+          <!--<li ng-repeat="score in scores.jsonScores">-->
+          <!--<input type="text" ng-model="score.user" ng-change="score.updateScore(score)">&ndash;&gt;-->
+              <!--{{ score.name }}-->
+              <!--{{ score.total }}-->
+          <!--</li>-->
+        <!--</ul>-->
+      <!--</section>-->
+      <!--&lt;!&ndash; end show all todos &ndash;&gt;-->
+    <!--</main>-->
 
-          </li>
-        </ul>
-      </section>
-      <!-- end show all todos -->
-    </main>
-
-  </div>
+  <!--</div>-->
 
   </div>
 </div>
