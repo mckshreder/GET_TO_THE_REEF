@@ -52,6 +52,13 @@ function create() {
 	background.height = game.height;
   background.width = game.width;
     
+    // this is for the line that makes the window allow you to jump out of it to the next level
+    exit_window = game.add.sprite(100, 100, 'purp_line');
+    exit_window.scale.setTo(2, 1);
+    game.physics.arcade.enable(exit_window);
+    exit_window.body.angle += 5;
+    // game.add.tween(exit_window).to( { angle: 90 }, 1, Phaser.Easing.Linear.None, true);
+
     
     
 
@@ -95,18 +102,14 @@ function create() {
     ledge_5.body.immovable = true;
 
 
-// this is for the line that makes the window allow you to jump out of it to the next level
-    exit_window = game.add.sprite(-150, 100, 'purp_line');
-    exit_window.scale.setTo(2, 1);
-    game.physics.arcade.enable(exit_window);
-    game.add.tween(exit_window).to( { angle: 90 }, 1, Phaser.Easing.Linear.None, true);
 
    
    // bring character into the game
    	player = game.add.sprite(1, 220, 'user');
 	 //  We need to enable physics on the player
 	    game.physics.arcade.enable(player);
-        player.scale.setTo(0.7,0.7);
+      player.scale.setTo(0.6,0.6);
+      player.body.setSize(45, 165, 65, 90);
     	player.body.gravity.y = 500;
     	player.body.checkCollision.up = false;
     	player.body.checkCollision.left = false;
@@ -318,6 +321,8 @@ function render() {
     game.debug.text('TIME: ' + total_minutes + ":" + total + ":" + total_seconds +' a.m.', 358, 25);
     // this allows player to be followed by camera
     // game.debug.cameraInfo(game.camera, 0, 0);
+    game.debug.body(player);
+    game.debug.body(exit_window);
     
 }
 
