@@ -21,7 +21,30 @@ body > canvas{
  margin-top: -1%;
 
  }
-body {
+
+#container {
+  font-family: 'Sonsie One', cursive;
+  font-weight: 400; font-size: 15px;
+  text-align:left;
   background-color: goldenrod;
+  width: 300px;
+  margin: 0 auto;
+
+  //opacity: 0.8;
+  text-align: left;
+}
+h2{
+  text-align: center;
 }
 
+//.name {
+//  text-align: left;
+//  border: 3px dotted lightgrey;
+//  width: 600px;
+//  padding: 10px 45px;
+//  margin: 30px auto;
+//}
+h3{
+  text-align: left;
+}
+//

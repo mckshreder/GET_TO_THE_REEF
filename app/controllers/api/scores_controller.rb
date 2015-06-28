@@ -3,6 +3,7 @@ module API
 
     def index
       render json: Score.all
+      # render json: User.all
     end
   end
 end

@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     post "/sessions" => "sessions#create", as: :create_session
     get "/sessions/destroy" => "sessions#destroy", as: :destroy_session
 
+    # get "/games/home" => "games#home", as: :home
 
   namespace :api do
     resources :scores, only:[:index]
