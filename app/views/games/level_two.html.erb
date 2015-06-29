@@ -74,20 +74,25 @@ function preload() {
 
     // regular time variable
     beginningTimeMS = game.time.time;
-    game.load.image('house', '/images/moneys_house.png');
     game.load.image('blank_line', '/images/blank_line.png');
     game.load.image('purp_line', '/images/purp_line.png');
+    game.load.image('blank_line_vertical', '/images/blank_line_vertical.png');
+    game.load.image('purp_line_vertical', '/images/purp_line_vertical.png');
     game.load.image('mountain', '/images/LEVEL2_mountains_sky_hollywood_sign.png');
 	game.load.image('background', '/images/LEVEL2_city_buildings.png');
     game.load.image('close_background', '/images/LEVEL2_city_buildings.png');
     game.load.image('sidewalk', '/images/LEVEL2_foreground_street.png');
+    game.load.spritesheet('coin', '/images/redgacoin.png', 273.29, 300);
     game.load.spritesheet('user', '/images/runninmoney.png', 250, 320, 60);
     game.load.image('icecream', '/images/ice_cream.png');
-    game.load.image('hotdog', '/images/mainHotDog.png');
+    // game.load.image('burrito_truck', '/images/ice_cream.png');
+    game.load.image('icecream_truck', '/images/ice_cream_truck.png');
+    game.load.image('hotdog', '/images/LEVEL2_OBSTACLE_HOTDOG.png');
+
 
 	}
 
-var house, hotdog, icecream;
+var house, hotdog, icecream, coins;
     // these create the timer variables
 var timer;
 var timer2;
@@ -126,13 +131,17 @@ function create() {
     //background.width = game.width
 
     // this is where we will be creating the hot dogs
-    // hotdog = game.add.emitter(200, 200, 2);
-    // hotdog.makeParticles('hotdog');
-    // // hotdog.anchor.setTo(0.5, 0.5);
-    // hotdog.scale.setTo(0.014,0.014);
+    hotdog = game.add.emitter(2500, 250, 30);
+    hotdog.makeParticles('hotdog');
+    // hotdog.anchor.setTo(0.5, 0.5);
+    hotdog.scale.setTo(1,1);
+
     // game.physics.enable(hotdog, Phaser.Physics.ARCADE);
-    // // hotdog.body.allowRotation = false;
-    // hotdog.start(false, 5000, 20);
+    // hotdog.body.allowRotation = false;
+    hotdog.start(false, 6000, 200);
+
+    icecream_truck = game.add.image(4500, 325, 'icecream_truck');
+    icecream_truck.scale.setTo(1.1,1.1);
 
 
     
@@ -172,7 +181,7 @@ function create() {
     // player.body.checkCollision.right = false;
      //  Player physics properties. Give the little guy a slight bounce.
     player.body.bounce.y= 0.2;
-    player.body.gravity.y = 375;
+    player.body.gravity.y = 365;
     player.body.collideWorldBounds = true;
 
     //  Our two animations, walking left and right.
@@ -239,13 +248,37 @@ function create() {
     icecreamLaunch();
     
     function icecreamLaunch() {
-        createIcecream(1500, 80, 1.2, -600);
-        createIcecream(-1500, 80, 1.2, -600);
-        createIcecream(-500, 385, 1.5, -500);
-        createIcecream(1000, 530, 1.5, -500);
+        createIcecream(4500, 380, 1.2, -700);
+        createIcecream(4500, 380, 1.2, -1300);
+        // createIcecream(1500, 350, 1.5, -300);
+        createIcecream(4500, 380, 1.2, -2000);
     }
 
 
+coins = game.add.group();
+
+    coins.enableBody = true;
+
+    //  Here we'll create 12 of them evenly spaced apart
+    for (var i = 0; i < 5; i++)
+    {
+        //  Create a star inside of the 'stars' group
+        var coin = coins.create(2550 + (250 * i), 50, 'coin');
+        coin.scale.x = game.rnd.realInRange(.24, .24);
+        coin.scale.y = game.rnd.realInRange(.24, .24);
+
+        //  Let gravity do its thing
+        coin.body.gravity.y = 300;
+        //  This just gives each star a slightly random bounce value
+        coin.body.bounce.y = 0.6 + Math.random() * 0.4;
+
+        coin.animations.add('spin', [5, 6, 7, 8, 9, 10, 9], 10, true);
+        coin.animations.play('spin');
+    }
+
+    exit_window = game.add.sprite(10220, 400, 'purp_line_vertical');
+    exit_window.scale.setTo(3, 1);
+    game.physics.arcade.enable(exit_window);
 
 
 }
@@ -253,6 +286,8 @@ function create() {
 
 
 function update() {
+    game.physics.arcade.overlap(player, exit_window, overlapHandler, null, this);
+    
     
     game.physics.arcade.collide(player, platforms);
     game.physics.arcade.collide(icecreams, platforms);
@@ -280,7 +315,7 @@ function update() {
     if (cursors.left.isDown)
     {
         //  Move to the left
-        player.body.velocity.x = -1250;
+        player.body.velocity.x = -550;
         
 
         player.animations.play('left');
@@ -289,7 +324,7 @@ function update() {
     else if (cursors.right.isDown)
     {
         //  Move to the right
-        player.body.velocity.x = 1250;
+        player.body.velocity.x = 550;
 
 
         player.animations.play('right');
@@ -309,7 +344,9 @@ function update() {
     {
         player.body.velocity.y = -350;
     }
-
+// these are the functions for the coins
+game.physics.arcade.collide(coins, platforms);
+game.physics.arcade.overlap(player, coins, collectCoin, null, this);
 
 
 }
@@ -353,6 +390,20 @@ function updateCounter_2() {
     gameTime.text = 'TIME: ' + total_minutes + ":" + total + ":" + total_seconds +' a.m.';
 }
 
+
+function collectCoin (player, coin) {
+    
+    // Removes the star from the screen
+    coin.kill();
+    alert("-30 SECONDS");
+
+    
+    total_seconds -= 30;
+    // scoreText.text = 'Score: ' + score;
+   
+
+}
+
 // these will be the code that ends the level and saves data and kills player and takes you to the next map. This is a place holder for now
 // this is the actually function being called when you jump out the window. this bring you to the next level
 
@@ -386,7 +437,7 @@ function overlapHandler (player, exit_window) {
         saveScore();
         // insert timeout function
         // window.location.replace("http://reincarnage.herokuapp.com/level2intro")};
-        window.location.replace("http://localhost:3000/games/level_two")};
+        window.location.replace("http://localhost:3000/games/level_three_video")};
         
         $('body').fadeOut(2000, function(){levelChange();});
 
@@ -401,8 +452,8 @@ function render() {
     // this allows player to be followed by camera
     // game.debug.cameraInfo(game.camera, 0, 0);
     
-     game.debug.body(player);
-     game.debug.body(icecreams);
+     // game.debug.body(player);
+     // game.debug.body(icecreams);
 }
    
 </script>
