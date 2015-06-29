@@ -16,6 +16,7 @@
 //= require turbolinks
 //= require bootstrap
 //= require_tree .
+//= require phaser.min
 $('div').on('click', function() {
       $(this).toggleClass('show-description');
   });

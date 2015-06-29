@@ -1,4 +1,8 @@
- 
+
+
+ <!---I moved this into level_one.js and then used gon.
+ gon is a gem that lets you pass ruby variables to javascript. 
+ Using javascript testing, we don't load views. jasmine loads the js files, the assets, etc, but doesn't load them into an html file. 
 
 <script type="text/javascript">
 
@@ -44,6 +48,7 @@ function preload() {
 }
 
 // these create the timer variables
+// these should be variables on the game object rather than global
 var timer;
 var timer2;
 var total = 50;
@@ -476,5 +481,5 @@ function overlapHandler (player, exit_window) {
    
 </script>
 
-
+-->
 

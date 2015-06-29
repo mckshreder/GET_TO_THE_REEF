@@ -7,9 +7,11 @@ class GamesController < ApplicationController
   end
 
 	def level_one
+    gon.level = 1
 	end
 
 	def level_two
+    gon.level = 2
 	end
 
 	def save

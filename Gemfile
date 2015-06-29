@@ -29,6 +29,10 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
+#lets you pass ruby variables to javascript
+gem 'gon'
+#adds phaser to the asset pipeline
+gem 'phaser-rails'
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
@@ -48,6 +52,10 @@ group :development, :test do
   gem 'factory_girl_rails'
 
   gem 'rack_session_access'
+
+  gem 'jasmine'
+
+  gem 'jasmine-jquery-rails'
 
   #ADD IN simplecov gem
   gem 'simplecov', :require => false
