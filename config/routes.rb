@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   
   root :to => 'games#home'
-
+    get "/games/landing_page" => "games#landing_page", as: :landing_page
     get "/games/level_one" => "games#level_one", as: :level_one
     get "/games/level_two" => "games#level_two", as: :level_two
     post 'save' => "games#save"

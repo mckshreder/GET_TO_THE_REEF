@@ -28,7 +28,6 @@ function preload() {
 	game.load.image('purp_line', '/images/purp_line.png');
   game.load.image('blank_line_vertical', '/images/blank_line_vertical.png');
   game.load.image('purp_line_vertical', '/images/purp_line_vertical.png');
-  game.load.image('alarm_clock', '/images/alarm_clock.png');
   game.load.image('ringing_alarm_clock', '/images/ringing_alarm_clock.png');
   game.load.image('pizza', '/images/pizza.png');
   game.load.image('pizzabox', '/images/pizzabox.png');
@@ -40,7 +39,7 @@ function preload() {
   game.load.spritesheet('user', '/images/runninmoney.png', 250, 320, 60);
   game.load.spritesheet('coin', '/images/redgacoin.png', 273.29, 300);
   game.load.spritesheet('cloud', '/images/cloudsprite.png', 500, 275, 13);
-    game.load.audio('alarm', '/sounds/alarm.mp3');
+  game.load.audio('alarm', '/sounds/alarm.mp3');
 
 }
 
@@ -108,7 +107,8 @@ function create() {
     ringing_alarm.anchor.set(0.5);
     ringing_alarm.smoothed = false;
     // this is what makes teh alarm animate
-    game.add.tween(ringing_alarm.scale).to( { x: 0.3, y: 0.3 }, 250, Phaser.Easing.Linear.None, true, 1000, 100, true);
+    game.add.tween(ringing_alarm.scale).to( { x: 0.3, y: 0.3 }, 250, Phaser.Easing.Linear.None, true, 0, 100, true);
+    // this is the alarm sound
     alarm = game.add.audio('alarm');
     alarm.play();
 
@@ -275,7 +275,7 @@ function update() {
 function createPizza() {
   // this terminates the alarm graphic and make the pizza
   ringing_alarm.kill();
-  alarm.kill();
+  alarm.stop();
   pizzaBox = game.add.sprite(20, 400, 'pizzabox');
   pizzaBox.scale.setTo(0.25,0.25);
   game.physics.arcade.enable(pizzaBox);
@@ -284,12 +284,12 @@ function createPizza() {
   pizzaSlice = game.add.sprite(95, 445, 'pizza');
     game.physics.arcade.enable(pizzaSlice);
     pizzaSlice.body.setSize(45, 230, 0, 0);
-    pizzaSlice.scale.x = game.rnd.realInRange(0.01, 0.01);
-    pizzaSlice.scale.y = game.rnd.realInRange(0.01, 0.01);
+    pizzaSlice.scale.x = game.rnd.realInRange(0.18, 0.18);
+    pizzaSlice.scale.y = game.rnd.realInRange(0.18, 0.18);
     pizzaSlice.anchor.set(0.5);
     pizzaSlice.smoothed = false;
     // this is what makes teh alarm animate
-    game.add.tween(pizzaSlice.scale).to( { x: 0.3, y: 0.3 }, 1150, Phaser.Easing.Linear.None, true, 0, 100, true);
+    game.add.tween(pizzaSlice.scale).to( { x: 0.3, y: 0.3 }, 450, Phaser.Easing.Linear.None, true, 0, 2, true);
 
 }
 
@@ -301,12 +301,12 @@ function createPhone() {
   phone = game.add.sprite(800, 475, 'phone');
       game.physics.arcade.enable(phone);
       phone.body.setSize(45, 230, 0, 0);
-      phone.scale.x = game.rnd.realInRange(0.01, 0.01);
-      phone.scale.y = game.rnd.realInRange(0.01, 0.01);
+      phone.scale.x = game.rnd.realInRange(0.11, 0.11);
+      phone.scale.y = game.rnd.realInRange(0.11, 0.11);
       phone.anchor.set(0.5);
       phone.smoothed = false;
       // this is what makes teh alarm animate
-      game.add.tween(phone.scale).to( { x: 0.15, y: 0.15 }, 1150, Phaser.Easing.Linear.None, true, 0, 100, true);
+      game.add.tween(phone.scale).to( { x: 0.15, y: 0.15 }, 400, Phaser.Easing.Linear.None, true, 0, 2, true);
 
 }
 
@@ -315,16 +315,15 @@ function createPlant() {
   phone.kill();
 // this is the message that says find moneys keys
 
-  money_message = game.add.sprite(420, 350, 'keys_message');
+  money_message = game.add.sprite(420, 270, 'keys_message');
     game.physics.arcade.enable(money_message);
     money_message.body.setSize(45, 230, 0, 0);
-    money_message.scale.x = game.rnd.realInRange(0.1, 0.1);
-    money_message.scale.y = game.rnd.realInRange(0.1, 0.1);
+    money_message.scale.x = game.rnd.realInRange(0.8, 0.8);
+    money_message.scale.y = game.rnd.realInRange(0.8, 0.8);
     money_message.anchor.set(0.5);
     money_message.smoothed = false;
     // this is what makes teh alarm animate
-    game.add.tween(money_message.scale).to( { x: 1, y: 1 }, 900, Phaser.Easing.Linear.None, true, 0, 2, true);
-    
+    game.add.tween(money_message.scale).to( { x: 1, y: 1 }, 400, Phaser.Easing.Linear.None, true, 0, 2, true);
 
     // this is the ledge for the top of the plant
     ledge_4 = platforms.create(140, 350, 'purp_line');
@@ -332,12 +331,14 @@ function createPlant() {
     ledge_4.body.immovable = true;
     game.physics.arcade.enable(ledge_4);
 
+
 }
 
 function createKeys() {
   // this terminates the alarm graphic and make the keys 
   ledge_4.kill();
   money_message.kill();
+  
 
   keys = game.add.sprite(140, 350, 'keys');
       game.physics.arcade.enable(keys);
@@ -352,8 +353,8 @@ function createKeys() {
    message = game.add.sprite(140, 350, 'message');
       game.physics.arcade.enable(message);
       message.body.setSize(45, 230, 0, 0);
-      message.scale.x = game.rnd.realInRange(0.1, 0.1);
-      message.scale.y = game.rnd.realInRange(0.1, 0.1);
+      message.scale.x = game.rnd.realInRange(0.5, 0.5);
+      message.scale.y = game.rnd.realInRange(0.5, 0.5);
       message.anchor.set(0.5);
       message.smoothed = false;
       // this is what makes teh alarm animate
