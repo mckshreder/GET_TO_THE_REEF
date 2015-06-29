@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
         if user && user.authenticate(user_params[:password])
             session[:user_id] = user.id
             flash["alert-success"] = "Hi #{current_user.name}! You are now logged in."
-            redirect_to level_one_path
+            redirect_to level_one_video_path
         else
             flash["alert-warning"] = "Incorrect email or password, please try again..."
             redirect_to new_session_path

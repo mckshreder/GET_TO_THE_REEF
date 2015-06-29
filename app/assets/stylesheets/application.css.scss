@@ -22,7 +22,39 @@ body > canvas{
 
  }
 body {
-  background-color: goldenrod;
-  background-image: url("/images.REEF.jpg") no-repeat;
+  background: #E0E0E0; 
+  /*background-image: url("/images.REEF.jpg") no-repeat;*/
 }
+
+
+ .embed-container {
+  z-index: 999;
+  position: absolute;
+  padding-bottom: 56.25%;
+  padding-top: 0px;
+  height: 100%;
+  overflow: hidden;
+  width: auto;
+  
+  margin-bottom: 12px;
+} 
+
+.embed-container iframe,
+.embed-container object,
+.embed-container embed {
+	z-index: 999;
+  
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.landing_video{
+  z-index: 999;
+  position: absolute;
+
+}
+
+
 

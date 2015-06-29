@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
   
-  root :to => 'games#home'
+  root :to => 'games#level_one_video'
+    get "/games/home" => "games#home"
     get "/games/landing_page" => "games#landing_page", as: :landing_page
     get "/games/level_one" => "games#level_one", as: :level_one
     get "/games/level_two" => "games#level_two", as: :level_two
+    get "/games/level_one_video" => "games#level_one_video", as: :level_one_video
+    get "/games/level_two_video" => "games#level_two_video", as: :level_two_video
+    get "/games/level_three_video" => "games#level_three_video", as: :level_three_video
     post 'save' => "games#save"
 
 
