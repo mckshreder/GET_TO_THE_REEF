@@ -9,8 +9,14 @@ $(function(){
   };
 });
 
+
+
 //we need objects to test against, so we're creating an object called load_level_one
 function load_level_one(){
+
+  function update_total_points(change_points) {
+    total_points += change_points;
+  }
 
   // for timer
   var pauser = true;
@@ -54,17 +60,13 @@ function load_level_one(){
   var timer;
   var timer2;
   //setting the value of the properties of the object-- hence no "var"
-  this.total_minutes = 50;
-  this.total_hours = 8;
-  this.total_seconds = 0;
+  var total_minutes = 50;
+  var total_hours = 8;
+  var total_seconds = 0;
 
-  this.total_points = 0;
-  var total_hours = this.total_hours;
-  var total_minutes = this.total_minutes;
-  var total_seconds = this.total_seconds;
+  var total_points = 0;
 
   function create() {
-    alert(total_minutes);
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
     game.input.onDown.add(gofull, this);
@@ -181,7 +183,7 @@ function load_level_one(){
     timer.start();
     timer2.start();
 
-    gameTime = ('TIME: ' + this.total_hours + ":" + this.total_minutes + ":" + this.total_seconds +' a.m.');
+    gameTime = ('TIME: ' + total_hours + ":" + total_minutes + ":" + total_seconds +' a.m.');
 
 
   // clouds = game.add.group();
@@ -287,6 +289,7 @@ function load_level_one(){
 
   function createPizza() {
     // this terminates the alarm graphic and make the pizza
+    update_total_points(20);
     ringing_alarm.kill();
     alarm.stop();
     pizzaBox = game.add.sprite(20, 400, 'pizzabox');
@@ -421,15 +424,15 @@ function load_level_one(){
   // this is the function that updates the clock and keeps track
   function updateCounter_2() {
      
-     if (this.total_seconds > 59) 
+     if (total_seconds > 59) 
       {
-          this.total_seconds = this.total_seconds - 60;
-          this.total_minutes ++;
+          total_seconds = total_seconds - 60;
+          total_minutes ++;
             
-            if (this.total_minutes > 59) 
+            if (total_minutes > 59) 
               {
-              this.total_minutes = this.total_minutes - 60;
-              this.total_hours++;
+              total_minutes = total_minutes - 60;
+              total_hours++;
               }
             else {
 
@@ -437,17 +440,17 @@ function load_level_one(){
       }
       else    
       {
-          this.total_seconds++;
+          total_seconds++;
       }
       // this updates the clock
-      gameTime.text = 'TIME: ' + this.total_hours + ":" + this.total_minutes + ":" + this.total_seconds +' a.m.';
+      gameTime.text = 'TIME: ' + total_hours + ":" + total_minutes + ":" + total_seconds +' a.m.';
   }
 
 
 
   function render() {
       // this is to display the clock
-      game.debug.text('TIME: ' + this.total_hours + ":" + this.total_minutes + ":" + this.total_seconds +' a.m.', 358, 25);
+      game.debug.text('TIME: ' + total_hours + ":" + total_minutes + ":" + total_seconds +' a.m.', 358, 25);
       
       // game.debug.body(player);
       
@@ -469,16 +472,16 @@ function load_level_one(){
           timer.stop();
           timer2.stop();
           // this is what saves the time to local storage
-          localStorage.setItem("total_minutes", this.total_minutes);
+          localStorage.setItem("total_minutes", total_minutes);
 
-          localStorage.setItem("total_hours", this.total_hours);
+          localStorage.setItem("total_hours", total_hours);
 
-          localStorage.setItem("total_seconds", this.total_seconds);
+          localStorage.setItem("total_seconds", total_seconds);
 
           localStorage.setItem("firstLevelClock", gameTime);
 
           //this saves points to local storage
-          localStorage.setItem("total_points", this.total_points)
+          localStorage.setItem("total_points", total_points)
 
           // insert timeout function
           // window.location.replace("http://reincarnage.herokuapp.com/level2intro")};

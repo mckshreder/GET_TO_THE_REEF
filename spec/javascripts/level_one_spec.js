@@ -2,11 +2,12 @@
 //test our implementation of phaser, not actual phaser code
 
 describe("Tests for Level One", function() {
-  it("should set initial time to 8:50:00", function() {
-    var levelOne = new load_level_one();   
-    expect(levelOne.total).toBe(50);
-    expect(levelOne.total_minutes).toBe(8);
-    //throw new Error(levelOne.total_minutes);
-    expect(levelOne.total_seconds).toBe(0);
+  it("should update global points", function() {
+    var level_one = load_level_one();
+    //having to redeclare this because it's not a property of any object, which technically is the wrong way to go
+    //normally we would instantiate an object and then test the state of that object/ properties of the object. 
+    var total_points = 0;   
+    level_one.update_total_points(10);
+    expect(total_points).toBe(10);
   });
 });

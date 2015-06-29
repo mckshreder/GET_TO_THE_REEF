@@ -47,11 +47,11 @@ function load_level_two(){
     var timer;
     var timer2;
     // this adds the total time from the first level time into this level time at begining of level
-    this.total_hours = localStorage.getItem("total_hours");
-    this.total_minutes = localStorage.getItem("total_minutes"); 
-    this.total_seconds = localStorage.getItem("total_seconds");
+    var total_hours = localStorage.getItem("total_hours");
+    var total_minutes = localStorage.getItem("total_minutes"); 
+    var total_seconds = localStorage.getItem("total_seconds");
 
-    this.total_points = localStorage.getItem("total_points");
+    var total_points = localStorage.getItem("total_points");
 
     function create() {
 
@@ -173,7 +173,7 @@ function load_level_two(){
         timer.start();
         timer2.start();
         
-        gameTime = ('TIME: ' + this.total_hours + ":" + this.total_minutes + ":" + this.total_seconds +' a.m.');
+        gameTime = ('TIME: ' + total_hours + ":" + total_minutes + ":" + total_seconds +' a.m.');
        
         icecreams = game.add.group();
         icecreams.enableBody = true;
@@ -201,8 +201,6 @@ function load_level_two(){
             createIcecream(-500, 385, 1.5, -500);
             createIcecream(1000, 530, 1.5, -500);
         }
-
-
 
 
     }
@@ -288,15 +286,15 @@ function load_level_two(){
     // this is the function that updates the clock and keeps track
     function updateCounter_2() {
        
-       if (this.total_seconds > 59) 
+       if (total_seconds > 59) 
         {
-            this.total_seconds = this.total_seconds - 60;
-            this.total_minutes ++;
+            total_seconds = total_seconds - 60;
+            total_minutes ++;
               
-              if (this.total_minutes > 59) 
+              if (total_minutes > 59) 
                 {
-                this.total_minutes = this.total_minutes - 60;
-                this.total_hours++;
+                total_minutes = total_minutes - 60;
+                total_hours++;
                 }
               else {
 
@@ -304,10 +302,10 @@ function load_level_two(){
         }
         else    
         {
-            this.total_seconds++;
+            total_seconds++;
         }
         // this updates the clock
-        gameTime.text = 'TIME: ' + this.total_hours + ":" + this.total_minutes + ":" + this.total_seconds +' a.m.';
+        gameTime.text = 'TIME: ' + total_hours + ":" + total_minutes + ":" + total_seconds +' a.m.';
     }
 
     // these will be the code that ends the level and saves data and kills player and takes you to the next map. This is a place holder for now
@@ -329,11 +327,11 @@ function load_level_two(){
             timer2.stop();
 
             // this is what saves the time to local storage
-            localStorage.setItem("total_minutes", this.total_minutes);
+            localStorage.setItem("total_minutes", total_minutes);
 
-            localStorage.setItem("total_hours", this.total_hours);
+            localStorage.setItem("total_hours", total_hours);
 
-            localStorage.setItem("total_seconds", this.total_seconds);
+            localStorage.setItem("total_seconds", total_seconds);
 
             localStorage.setItem("firstLevelClock", gameTime);
 
@@ -354,7 +352,7 @@ function load_level_two(){
 
     function render() {
         // this is to display the clock
-        game.debug.text('TIME: ' + this.total_hours + ":" + this.total_minutes + ":" + this.total_seconds +' a.m.', 358, 25);
+        game.debug.text('TIME: ' + total_hours + ":" + total_minutes + ":" + total_seconds +' a.m.', 358, 25);
         // this allows player to be followed by camera
         // game.debug.cameraInfo(game.camera, 0, 0);
         
