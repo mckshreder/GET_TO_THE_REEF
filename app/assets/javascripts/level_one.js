@@ -1,5 +1,5 @@
 //jquery shorthand for ondocumentready
-$(function(){
+$(document).on('ready page:load', function(){
   // these are for creating a user id that we can save in the data base via .ajax
   var userId = gon.user_id;
   localStorage.setItem("userId", userId);
