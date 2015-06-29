@@ -6,11 +6,20 @@ class GamesController < ApplicationController
   def landing_page
   end
 
+  def level_one_video
+  end
+
 	def level_one
 	end
 
+  def level_two_video
+  end
+
 	def level_two
 	end
+
+  def level_three_video
+  end
 
 	def save
         user = User.find(params[:user_id].to_i)
