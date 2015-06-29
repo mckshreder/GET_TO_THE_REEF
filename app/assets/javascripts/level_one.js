@@ -9,24 +9,35 @@ $(function(){
   };
 });
 
-
+function update_total_points(counter, points) {
+  counter += points;
+  return counter;
+}
 
 //we need objects to test against, so we're creating an object called load_level_one
 function load_level_one(){
 
-  function update_total_points(change_points) {
-    total_points += change_points;
-  }
-
   // for timer
   var pauser = true;
 
-  var game = new Phaser.Game(860, 600, Phaser.AUTO, 'game-container', { preload: preload, create: create, update: update, render: render });
+  var game = this.game =  new Phaser.Game(860, 600, Phaser.AUTO, 'game-container', { preload: preload, create: create, update: update, render: render });
 
 
   var coins, clouds, cloud, player, ringing_alarm, pizzaSlice, phone, ledge_4, exit_window,keys, money_message;
+  
 
+  // these create the timer variables
+  // these should be variables on the game object rather than global
+  var timer;
+  var timer2;
+  //setting the value of the properties of the object-- hence no "var"
+  var total_minutes = 50;
+  var total_hours = 8;
+  var total_seconds = 0;
 
+  var total_points = 0;
+
+  
 
   function preload() {
     localStorage.clear();
@@ -55,16 +66,7 @@ function load_level_one(){
 
   }
 
-  // these create the timer variables
-  // these should be variables on the game object rather than global
-  var timer;
-  var timer2;
-  //setting the value of the properties of the object-- hence no "var"
-  var total_minutes = 50;
-  var total_hours = 8;
-  var total_seconds = 0;
-
-  var total_points = 0;
+  
 
   function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -267,7 +269,7 @@ function load_level_one(){
       //  Allow the player to jump if they are touching the ground.
       if (spaceBar.isDown && player.body.touching.down)
       {
-          player.body.velocity.y = -350;
+        player.body.velocity.y = -350;
       }
 
 
@@ -288,8 +290,8 @@ function load_level_one(){
 
 
   function createPizza() {
+    total_points = update_total_points(total_points, 10)
     // this terminates the alarm graphic and make the pizza
-    update_total_points(20);
     ringing_alarm.kill();
     alarm.stop();
     pizzaBox = game.add.sprite(20, 400, 'pizzabox');
@@ -462,9 +464,6 @@ function load_level_one(){
       game.stage.backgroundColor = '#992d2d';
   // this makes player disappear when they change levels
       player.kill();
-
-     
-
               
         // this changes level
       var levelChange = function() {
@@ -485,14 +484,11 @@ function load_level_one(){
 
           // insert timeout function
           // window.location.replace("http://reincarnage.herokuapp.com/level2intro")};
-          window.location.replace("http://localhost:3000/games/level_two")};
+          window.location.replace("http://localhost:3000/games/level_two")
+      };
           
-          $('body').fadeOut(2000, function(){levelChange();});
-
+      $('body').fadeOut(2000, function(){levelChange();});
   }
-
-
-
 
 }
 

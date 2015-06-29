@@ -33,16 +33,18 @@ function load_level_two(){
         game.load.image('blank_line', '/images/blank_line.png');
         game.load.image('purp_line', '/images/purp_line.png');
         game.load.image('mountain', '/images/LEVEL2_mountains_sky_hollywood_sign.png');
-      game.load.image('background', '/images/LEVEL2_city_buildings.png');
+        game.load.image('background', '/images/LEVEL2_city_buildings.png');
         game.load.image('close_background', '/images/LEVEL2_city_buildings.png');
         game.load.image('sidewalk', '/images/LEVEL2_foreground_street.png');
         game.load.spritesheet('user', '/images/runninmoney.png', 250, 320, 60);
         game.load.image('icecream', '/images/ice_cream.png');
         game.load.image('hotdog', '/images/mainHotDog.png');
+        game.load.image('hotdogBurst', '/images/LEVEL2_OBSTACLE_hotdog.png');
 
       }
+    
 
-    var house, hotdog, icecream;
+    var house, hotdogBurst, emitter, icecream;
         // these create the timer variables
     var timer;
     var timer2;
@@ -174,6 +176,13 @@ function load_level_two(){
         timer2.start();
         
         gameTime = ('TIME: ' + total_hours + ":" + total_minutes + ":" + total_seconds +' a.m.');
+
+        emitter = game.add.emitter(game.world.centerX, 200, 400);
+        emitter.makeParticles('hotdogBurst');
+        //false means don't explode all the sprites at once, but instead release at a rate of 20 (150) particles per frame
+
+        //  The 5000 value is the lifespan of each particle
+        emitter.start(false, 5000, 190);
        
         icecreams = game.add.group();
         icecreams.enableBody = true;
