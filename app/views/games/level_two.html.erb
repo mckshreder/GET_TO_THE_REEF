@@ -4,11 +4,10 @@
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="/">Get To The Reef</a>
     </div>
@@ -80,7 +79,7 @@ function preload() {
     game.load.image('purp_line_vertical', '/images/purp_line_vertical.png');
     game.load.image('mountain', '/images/LEVEL2_mountains_sky_hollywood_sign.png');
 	game.load.image('background', '/images/LEVEL2_city_buildings.png');
-    game.load.image('close_background', '/images/LEVEL2_city_buildings.png');
+    // game.load.image('close_background', '/images/LEVEL2_city_buildings.png');
     game.load.image('sidewalk', '/images/LEVEL2_foreground_street.png');
     game.load.spritesheet('coin', '/images/redgacoin.png', 273.29, 300);
     game.load.spritesheet('user', '/images/runninmoney.png', 250, 320, 60);
@@ -107,7 +106,7 @@ function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
     game.input.onDown.add(gofull, this);
-    game.world.setBounds(0, 0, 10240, 2000);
+    game.world.setBounds(0, 0, 8300, 2000);
      
     clouds = game.add.image(0, 0, 'mountain');
     clouds.scale.setTo(.5,.55);
@@ -118,20 +117,20 @@ function create() {
 
     // inserting background image
     background = game.add.image(0, 0, 'background');
-    background.scale.setTo(.5,.5);
+    background.scale.setTo(.6,.5);
 
-    close_building = game.add.image(500,-1035, 'close_background');
-    // close_building.anchor.setTo(-0.4, .4);
-    close_building.scale.setTo(1.5,1.5);
+    // close_building = game.add.image(500,-1035, 'close_background');
+    // // close_building.anchor.setTo(-0.4, .4);
+    // close_building.scale.setTo(1.5,1.5);
 
 
-    sidewalk = game.add.image(0, -425, 'sidewalk');
-    sidewalk.scale.setTo(.9,.9);
+    sidewalk = game.add.image(0, -455, 'sidewalk');
+    sidewalk.scale.setTo(.65,.9);
     // sidewalk.x += 10;
     //background.width = game.width
 
     // this is where we will be creating the hot dogs
-    hotdog = game.add.emitter(2500, 250, 30);
+    hotdog = game.add.emitter(1000, 220, 30);
     hotdog.makeParticles('hotdog');
     // hotdog.anchor.setTo(0.5, 0.5);
     hotdog.scale.setTo(1,1);
@@ -276,7 +275,7 @@ coins = game.add.group();
         coin.animations.play('spin');
     }
 
-    exit_window = game.add.sprite(10220, 400, 'purp_line_vertical');
+    exit_window = game.add.sprite(8200, 400, 'blank_line_vertical');
     exit_window.scale.setTo(3, 1);
     game.physics.arcade.enable(exit_window);
 
@@ -303,7 +302,7 @@ function update() {
     clouds.x=game.camera.x*0.9;
     // the little - and + at after these game.camera.x set the object based on the camera position
     background.x=(game.camera.x*0.8)-3000;
-    close_building.x=(game.camera.x*0.25) + 2500;
+    // close_building.x=(game.camera.x*0.25) + 2500;
     sidewalk.x=game.camera.x*0.2;
     // grass.x=game.camera.x*0.8;
     // house.x=game.camera.x*0.2;
@@ -395,10 +394,10 @@ function collectCoin (player, coin) {
     
     // Removes the star from the screen
     coin.kill();
-    alert("-30 SECONDS");
+    // alert("-30 SECONDS");
 
     
-    total_seconds -= 30;
+    total_seconds -= 10;
     // scoreText.text = 'Score: ' + score;
    
 

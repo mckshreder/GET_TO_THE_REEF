@@ -128,13 +128,13 @@ function create() {
 
   	
     // creating the floor for the game
-   var ground = platforms.create(0, game.world.height -70, 'blank_line');
+   var ground = platforms.create(0, game.world.height -70, 'purp_line');
    game.physics.arcade.enable(ground);
    ground.scale.setTo(200, 2);
    ground.body.immovable = true;
 
 // this is the ledge for the rug to the right
-    ledge_1 = platforms.create(590, 470, 'blank_line');
+    ledge_1 = platforms.create(590, 470, 'purp_line');
     ledge_1.scale.setTo(1.5, 1);
     ledge_1.body.immovable = true;
     ledge_1.body.checkCollision.left = false;
@@ -142,14 +142,14 @@ function create() {
     
 
     // this is the ledge for the bed
-   	ledge_2 = platforms.create(300, 375, 'blank_line');
+   	ledge_2 = platforms.create(300, 375, 'purp_line');
    	ledge_2.scale.setTo(2.7, 1);
     ledge_2.body.immovable = true;
     ledge_2.body.checkCollision.left = false;
     ledge_2.body.checkCollision.right = false;
 
     // this is the ledge for the top of the bedframe below mattress
-    ledge_5 = platforms.create(290, 430, 'blank_line');
+    ledge_5 = platforms.create(290, 430, 'purp_line');
    	ledge_5.scale.setTo(3, 1);
     ledge_5.body.immovable = true;
     ledge_5.body.checkCollision.left = false;
